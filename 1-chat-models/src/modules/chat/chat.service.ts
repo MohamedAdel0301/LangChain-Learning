@@ -1,16 +1,16 @@
-import { ChatOpenAI } from '@langchain/openai';
 import { Injectable } from '@nestjs/common';
 import {
-  BaseMessage,
   HumanMessage,
+  MessageContent,
   SystemMessage,
 } from '@langchain/core/messages';
+import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
 
 @Injectable()
 export class ChatService {
-  constructor(private readonly langChain: ChatOpenAI) {}
+  constructor(private readonly langChain: ChatGoogleGenerativeAI) {}
 
-  async chatWithModel(message: string): Promise<BaseMessage> {
+  async chatWithModel(message: string): Promise<MessageContent> {
     const messages = [
       new SystemMessage('Translate the following from English into Arabic'),
       new HumanMessage(message),
@@ -18,6 +18,6 @@ export class ChatService {
 
     const response = await this.langChain.invoke(messages);
     console.log(response.content);
-    return response;
+    return response.content;
   }
 }
