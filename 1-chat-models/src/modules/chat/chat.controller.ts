@@ -5,7 +5,7 @@ import { ChatService } from './chat.service';
 export class ChatController {
   constructor(private readonly chatService: ChatService) {}
   @Post()
-  async chatWithModel(@Body() body: { message: string }) {
-    return this.chatService.chatWithModel(body.message);
+  async chatWithModel(@Body() body: { message: string; lang: string }) {
+    return this.chatService.chatWithModel(body.lang, body.message);
   }
 }
